@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='타입 I – int J – long Z – Boolean D – double F – float S – short C – char V - void 메소드 종류 Static : this 인수가 암묵적으로 첫번째 인수로 전달되지 않으면, Static 메소드
+Direct : vtable 개입 없이 직접 invoke 함 (ex. private method, constructor)
+Virtual : 자식 클래스에서 override 될 수 있는 Virtual 메소드. 클래스 관련됨 vtable을 사용해 invoke 함
+Register 간 데이터 이동 move move/from16 move-wide move-wide/from16 move-object move-object/from16 리턴 세팅 및 처리 move-result move-result-wide move-result-object return-void return return-wide return-object 예외 처리 throw move-exception 레지스터에 상수 대입 const/4 const 인스트럭션 패밀리'><title>smali code</title>
+
+<link rel='canonical' href='https://kazal92.github.io/post/android/android/smali_code/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='smali code'>
+<meta property='og:description' content='타입 I – int J – long Z – Boolean D – double F – float S – short C – char V - void 메소드 종류 Static : this 인수가 암묵적으로 첫번째 인수로 전달되지 않으면, Static 메소드
+Direct : vtable 개입 없이 직접 invoke 함 (ex. private method, constructor)
+Virtual : 자식 클래스에서 override 될 수 있는 Virtual 메소드. 클래스 관련됨 vtable을 사용해 invoke 함
+Register 간 데이터 이동 move move/from16 move-wide move-wide/from16 move-object move-object/from16 리턴 세팅 및 처리 move-result move-result-wide move-result-object return-void return return-wide return-object 예외 처리 throw move-exception 레지스터에 상수 대입 const/4 const 인스트럭션 패밀리'>
+<meta property='og:url' content='https://kazal92.github.io/post/android/android/smali_code/'>
+<meta property='og:site_name' content='My New Hugo Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='smali code' /><meta property='article:published_time' content='2022-04-01T03:06:10&#43;09:00'/><meta property='article:modified_time' content='2022-04-01T03:06:10&#43;09:00'/>
+<meta name="twitter:title" content="smali code">
+<meta name="twitter:description" content="타입 I – int J – long Z – Boolean D – double F – float S – short C – char V - void 메소드 종류 Static : this 인수가 암묵적으로 첫번째 인수로 전달되지 않으면, Static 메소드
+Direct : vtable 개입 없이 직접 invoke 함 (ex. private method, constructor)
+Virtual : 자식 클래스에서 override 될 수 있는 Virtual 메소드. 클래스 관련됨 vtable을 사용해 invoke 함
+Register 간 데이터 이동 move move/from16 move-wide move-wide/from16 move-object move-object/from16 리턴 세팅 및 처리 move-result move-result-wide move-result-object return-void return return-wide return-object 예외 처리 throw move-exception 레지스터에 상수 대입 const/4 const 인스트럭션 패밀리">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/android/" style="background-color: #2a9d8f color: ; color: ;">
+                Android
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/post/android/android/smali_code/">smali code</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 01, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="타입">타입</h2>
+<pre tabindex="0"><code>I – int
+J – long
+Z – Boolean
+D – double
+F – float
+S – short 
+C – char
+V - void
+</code></pre><h2 id="메소드-종류">메소드 종류</h2>
+<p>Static : this 인수가 암묵적으로 첫번째 인수로 전달되지 않으면, Static 메소드<br>
+Direct : vtable 개입 없이 직접 invoke 함 (ex. private method, constructor)<br>
+Virtual : 자식 클래스에서 override 될 수 있는 Virtual 메소드. 클래스 관련됨 vtable을 사용해 invoke 함</p>
+<h3 id="register-간-데이터-이동">Register 간 데이터 이동</h3>
+<pre tabindex="0"><code>move
+move/from16
+move-wide
+move-wide/from16
+move-object
+move-object/from16
+</code></pre><h3 id="리턴-세팅-및-처리">리턴 세팅 및 처리</h3>
+<pre tabindex="0"><code>move-result
+move-result-wide
+move-result-object
+return-void
+return
+return-wide
+return-object
+</code></pre><h3 id="예외-처리">예외 처리</h3>
+<pre tabindex="0"><code>throw
+move-exception
+</code></pre><h3 id="레지스터에-상수-대입">레지스터에 상수 대입</h3>
+<pre tabindex="0"><code>const/4
+const
+</code></pre><p>인스트럭션 패밀리</p>
+<h3 id="레지스터간-move">레지스터간 move</h3>
+<pre tabindex="0"><code>move, move/from16, move-wide, move-wide/from16, move-object, move-object/from16
+</code></pre><h3 id="결과값을-얻거나-세팅">결과값을 얻거나 세팅</h3>
+<pre tabindex="0"><code>move-result, move-result-wide, move-result-object, return-void, return,
+return-wide, return-object
+</code></pre><h3 id="예외처리">예외처리</h3>
+<pre tabindex="0"><code>throw, move-exception
+</code></pre><h3 id="레지스터에-상수-대입-1">레지스터에 상수 대입</h3>
+<pre tabindex="0"><code>const/4, const/16, const, const/high16, const-wide/1, const-wide/32,
+const-wide, const-wide/high16, const-string, const-class
+</code></pre><h3 id="동기화">동기화</h3>
+<pre tabindex="0"><code>monitor-enter, monitor-exit
+</code></pre><h3 id="타입체크">타입체크</h3>
+<pre tabindex="0"><code>check-cast, instance-of
+</code></pre><h3 id="배열-조작">배열 조작</h3>
+<pre tabindex="0"><code>new-array, array-length, filled-new-array, filled-new-array/range,
+fill-array-data
+</code></pre><h3 id="인스턴스생성">인스턴스생성</h3>
+<pre tabindex="0"><code>new-instance
+</code></pre><h3 id="실행-조작">실행 조작</h3>
+<pre tabindex="0"><code>goto, goto/16, packed-switch, sparse-switch,
+if-eq, if-ne, if-lt, if-ge, if-gt, if-le, if-eqz, if-nez, if-ltz, if-gez, if-gtz,
+if-lez
+</code></pre><h3 id="비교">비교</h3>
+<pre tabindex="0"><code>cmpl-float
+cmpg-float
+cmpl-double
+cmpl-double
+cmpg-double
+cmp-long
+</code></pre><h3 id="멤버필드에-읽기쓰기">멤버필드에 읽기/쓰기</h3>
+<pre tabindex="0"><code>iget
+iget-wide
+iget-object
+iget-boolean
+iget-byte
+iget-char
+iget-short
+</code></pre><h3 id="배열요소에-읽기쓰기">배열요소에 읽기/쓰기</h3>
+<pre tabindex="0"><code>aget
+aget-wide
+aget-object
+aget-boolean
+aget-byte
+aget-char
+aget-short
+</code></pre><h3 id="메소드-호출">메소드 호출</h3>
+<pre tabindex="0"><code>invoke-virtua
+invoke-super
+invoke-direct
+invoke-static
+invoke-interface
+invoke-virtual/range
+invoke-super/range
+invoke-direct/range
+invoke-static/range
+invoke-interface/range
+</code></pre><h3 id="연산-명령int-long-float-double">연산 명령(int, long, float, double)</h3>
+<pre tabindex="0"><code>add
+sub
+mul
+div
+rem
+</code></pre><h2 id="smali-snippet">Smali snippet</h2>
+<h3 id="so-라이브러리-로드">so 라이브러리 로드</h3>
+<pre tabindex="0"><code>const-string v0, &#34;so_file_name&#34;
+invoke-static {v0}, Ljava/lang/System;-&gt;loadLibrary(Ljava/lang/String;)V
+</code></pre><h3 id="로그-출력">로그 출력</h3>
+<pre tabindex="0"><code>.local v0, &#34;Log&#34;:Ljava/lang/String;
+const-string v1,  &#34;hack&#34; //출력할 문자열 혹은 레지스터
+invoke-static {v1, v0}, Landroid/util/Log;-&gt;e(Ljava/lang/String;Ljava/lang/String;)I
+</code></pre><h3 id="sleep">sleep</h3>
+<pre tabindex="0"><code>const-wide/16 v2, 0xa  // 0xa = 10
+invoke-static {v2, v3}, Ljava/lang/Thread;-&gt;sleep(J)V
+</code></pre><h3 id="toast-출력">toast 출력</h3>
+<pre tabindex="0"><code>const-string v0, &#34;Toast TEST&#34;
+const/4 v1, 0x0
+invoke-static {p0, v0, v1}, Landroid/widget/Toast;-&gt;makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+move-result-object v0
+invoke-virtual {v0}, Landroid/widget/Toast;-&gt;show()V
+</code></pre>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/smali-code/">smali code</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2022 My New Hugo Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#타입">타입</a></li>
+    <li><a href="#메소드-종류">메소드 종류</a>
+      <ul>
+        <li><a href="#register-간-데이터-이동">Register 간 데이터 이동</a></li>
+        <li><a href="#리턴-세팅-및-처리">리턴 세팅 및 처리</a></li>
+        <li><a href="#예외-처리">예외 처리</a></li>
+        <li><a href="#레지스터에-상수-대입">레지스터에 상수 대입</a></li>
+        <li><a href="#레지스터간-move">레지스터간 move</a></li>
+        <li><a href="#결과값을-얻거나-세팅">결과값을 얻거나 세팅</a></li>
+        <li><a href="#예외처리">예외처리</a></li>
+        <li><a href="#레지스터에-상수-대입-1">레지스터에 상수 대입</a></li>
+        <li><a href="#동기화">동기화</a></li>
+        <li><a href="#타입체크">타입체크</a></li>
+        <li><a href="#배열-조작">배열 조작</a></li>
+        <li><a href="#인스턴스생성">인스턴스생성</a></li>
+        <li><a href="#실행-조작">실행 조작</a></li>
+        <li><a href="#비교">비교</a></li>
+        <li><a href="#멤버필드에-읽기쓰기">멤버필드에 읽기/쓰기</a></li>
+        <li><a href="#배열요소에-읽기쓰기">배열요소에 읽기/쓰기</a></li>
+        <li><a href="#메소드-호출">메소드 호출</a></li>
+        <li><a href="#연산-명령int-long-float-double">연산 명령(int, long, float, double)</a></li>
+      </ul>
+    </li>
+    <li><a href="#smali-snippet">Smali snippet</a>
+      <ul>
+        <li><a href="#so-라이브러리-로드">so 라이브러리 로드</a></li>
+        <li><a href="#로그-출력">로그 출력</a></li>
+        <li><a href="#sleep">sleep</a></li>
+        <li><a href="#toast-출력">toast 출력</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
